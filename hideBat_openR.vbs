@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "openR.bat", 0, True
