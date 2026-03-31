@@ -1,0 +1,16 @@
+{
+  "ask_confirmation": true,
+  "show_success_message": true,
+  "exclude_patterns": [
+    "*.tmp",
+    "*.log",
+    ".Rproj.user/*",
+    "__pycache__/*"
+  ],
+  "copies": [
+    {
+    "from": "C:/Users/YOUR_USER/Documents/LocalProject",
+    "to": "G:/MyDrive/Backups/LocalProject"
+    }
+  ]
+}

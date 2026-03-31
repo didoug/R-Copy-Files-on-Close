@@ -1,11 +1,26 @@
-set myvar=%cd%
+@echo off
+setlocal
 
-cd C:\Program Files\RStudio\
-start rstudio.exe
+set "SCRIPT_DIR=%~dp0"
+set "RSTUDIO_EXE=%ProgramFiles%\RStudio\rstudio.exe"
 
-:check_status
-TASKLIST /FI "IMAGENAME EQ RStudio.exe" |FIND ":" > nul
-IF ERRORLEVEL 1 TIMEOUT /T 1 /NOBREAK && GOTO check_status 
+if not exist "%RSTUDIO_EXE%" set "RSTUDIO_EXE=%ProgramFiles%\RStudio\bin\rstudio.exe"
 
-cd %myvar%
-python copyFilesToGDrive.py
+if not exist "%RSTUDIO_EXE%" (
+    echo RStudio was not found. Update the path in openR.bat.
+    pause
+    exit /b 1
+)
+
+start "" /wait "%RSTUDIO_EXE%"
+
+pushd "%SCRIPT_DIR%"
+where py >nul 2>&1
+if %errorlevel%==0 (
+    py -3 copyFilesToGDrive.py
+) else (
+    python copyFilesToGDrive.py
+)
+popd
+
+endlocal
